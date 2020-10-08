@@ -30,5 +30,5 @@ Just remember that your code must be written in Kotlin!
 
 
 ### Delivery
-Once finished, deliver the result of the assignment as a project available on your GitHub **in three different branches**(One branch for each part) and share the link to the repo with us.
+Start the challenge by forking this repository, Once finished, deliver the result of the assignment as a project available on your GitHub **in three different branches**(One branch for each part) and share the link to the repo with us.
 
