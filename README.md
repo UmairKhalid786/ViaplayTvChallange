@@ -14,14 +14,14 @@ Currently, by moving the focus from product items in **MainFragment** a backgrou
 ### Part2:
 You've been given a task to refactor the current UI and more specifically the state of the left side menu. If you run the app you will see it currently looks like:
 
-![CurrentCollapsed](https://github.com/mr-nent/ATV_Sample/raw/master/screenshots/current_app_collapsed.jpeg)
-![CurrentExpanded](https://github.com/mr-nent/ATV_Sample/blob/master/screenshots/current_app_expanded.jpeg)
+![CurrentCollapsed](https://github.com/mr-nent/ViaplayAndroidTvChallenge/raw/master/screenshots/current_app_collapsed.jpeg)
+![CurrentExpanded](https://github.com/mr-nent/ViaplayAndroidTvChallenge/blob/master/screenshots/current_app_expanded.jpeg)
 
 in collapsed and expanded mode. We want to achieve something like this:
 
 
-![NextCollapsed](https://github.com/mr-nent/ATV_Sample/blob/master/screenshots/next_state_collapsed.png)
-![NextCollapsed](https://github.com/mr-nent/ATV_Sample/blob/master/screenshots/next_state_expanded.png)
+![NextCollapsed](https://github.com/mr-nent/ViaplayAndroidTvChallenge/blob/master/screenshots/next_state_collapsed.png)
+![NextCollapsed](https://github.com/mr-nent/ViaplayAndroidTvChallenge/blob/master/screenshots/next_state_expanded.png)
 
 You should do this by customizing leanback components, no 3rd party usage is allowed in this task. You can pick the icons as drawables from material icons set. As an example you can check how the youtube's AndroidTv app is looking now. We want to achieve something similar 
 
