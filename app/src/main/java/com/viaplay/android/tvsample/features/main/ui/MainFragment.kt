@@ -1,5 +1,6 @@
 package com.viaplay.android.tvsample.features.main.ui
 
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.leanback.app.BackgroundManager
 import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -21,6 +23,7 @@ import com.viaplay.android.tvsample.core.utils.ImageLinkHelper
 import com.viaplay.android.tvsample.features.main.domain.Content
 import com.viaplay.android.tvsample.features.main.domain.Product
 import com.viaplay.android.tvsample.features.main.viewmodels.MainViewModel
+import com.viaplay.android.tvsample.utils.ViewUtils
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -134,19 +137,22 @@ class MainFragment : BrowseSupportFragment() {
     private fun updateBackground(uri: String?) {
         val width = mMetrics.widthPixels
         val height = mMetrics.heightPixels
+
         Glide.with(requireActivity())
-                .load(ImageLinkHelper.withSize(uri, width, height))
-                .centerCrop()
-                .error(mDefaultBackground)
-                .into(object : CustomTarget<Drawable>(width, height) {
-                    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-                        mBackgroundManager.drawable = resource
-                    }
+            .asBitmap()
+            .load(ImageLinkHelper.withSize(uri, width, height))
+            .skipMemoryCache(true) //Will keep bitmaps in control
+            .centerCrop()
+            .error(mDefaultBackground)
+            .into(object : CustomTarget<Bitmap> (width, height){
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    mBackgroundManager.setBitmap(context?.let { ViewUtils.applyOverlay(it, resource, R.drawable.home_page_background_gradient) })
+                }
+                override fun onLoadCleared(placeholder: Drawable?) {
 
-                    override fun onLoadCleared(placeholder: Drawable?) {
+                }
+            })
 
-                    }
-                })
         mBackgroundTimer?.cancel()
     }
 
