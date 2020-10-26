@@ -12,7 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.leanback.app.BackgroundManager
 import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.observe
+import androidx.navigation.NavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -116,7 +117,7 @@ class MainFragment : BrowseSupportFragment() {
         }
 
         onItemViewClickedListener = OnItemViewClickedListener { itemViewHolder, item, rowViewHolder, row ->
-            findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
+            getController().navigate(R.id.action_mainFragment_to_detailFragment)
         }
         onItemViewSelectedListener = ItemViewSelectedListener()
     }
@@ -160,6 +161,10 @@ class MainFragment : BrowseSupportFragment() {
         override fun run() {
             mHandler.post { updateBackground(mBackgroundUri) }
         }
+    }
+
+    fun getController(): NavController {
+        return (activity as MainActivity).getController()
     }
 
     companion object {
