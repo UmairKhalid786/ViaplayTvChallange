@@ -4,7 +4,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.viaplay.android.tvsample.features.main.ui.MainFragment"
+        android:name="com.viaplay.android.tvsample.features.main.ui.custom.CustomBrowseFragment"
         android:label="Main">
         <action
             android:id="@+id/action_mainFragment_to_detailFragment"
