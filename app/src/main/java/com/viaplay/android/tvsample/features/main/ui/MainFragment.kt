@@ -14,6 +14,7 @@ import androidx.leanback.app.BrowseSupportFragment
 import androidx.leanback.widget.*
 import androidx.lifecycle.observe
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -42,9 +43,8 @@ class MainFragment : BrowseSupportFragment() {
     private var mBackgroundUri: String? = null
     private var rowsAdapter = ArrayObjectAdapter(ListRowPresenter())
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         adapter = rowsAdapter
         mainViewModel.startDataLoad()
         setupObservers()
@@ -53,16 +53,13 @@ class MainFragment : BrowseSupportFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
         super.onActivityCreated(savedInstanceState)
-
         prepareBackgroundManager(savedInstanceState)
-
         setupUIElements()
-
         setupEventListeners()
     }
 
     private fun setupObservers() {
-        mainViewModel.content.observe(viewLifecycleOwner, ::bindContent)
+        mainViewModel.content.observe(this, ::bindContent)
     }
 
     private fun bindContent(content: Content) {
@@ -117,7 +114,7 @@ class MainFragment : BrowseSupportFragment() {
         }
 
         onItemViewClickedListener = OnItemViewClickedListener { itemViewHolder, item, rowViewHolder, row ->
-            getController().navigate(R.id.action_mainFragment_to_detailFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_detailFragment)
         }
         onItemViewSelectedListener = ItemViewSelectedListener()
     }
@@ -161,10 +158,6 @@ class MainFragment : BrowseSupportFragment() {
         override fun run() {
             mHandler.post { updateBackground(mBackgroundUri) }
         }
-    }
-
-    fun getController(): NavController {
-        return (activity as MainActivity).getController()
     }
 
     companion object {
