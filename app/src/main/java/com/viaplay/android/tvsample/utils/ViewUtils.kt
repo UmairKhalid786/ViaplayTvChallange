@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
+import androidx.core.content.res.ResourcesCompat
 
 
 /**
@@ -23,6 +24,14 @@ class ViewUtils {
 
 
     companion object {
+
+        fun applyOverlay(
+            context: Context,
+            sourceImage: Drawable,
+            overlayDrawableResourceId: Int): Drawable? {
+
+            return LayerDrawable(arrayOf(sourceImage , ResourcesCompat.getDrawable(context.resources, overlayDrawableResourceId , null)))
+        }
 
         fun applyOverlay(
             context: Context,

@@ -138,15 +138,31 @@ class MainFragment : BrowseSupportFragment() {
         val width = mMetrics.widthPixels
         val height = mMetrics.heightPixels
 
+//        //Method one
+//        Glide.with(requireActivity())
+//            .asBitmap()
+//            .load(ImageLinkHelper.withSize(uri, width, height))
+//            .skipMemoryCache(true) //Will keep bitmaps in control
+//            .centerCrop()
+//            .error(mDefaultBackground)
+//            .into(object : CustomTarget<Bitmap> (width, height){
+//                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+//                    mBackgroundManager.setBitmap(context?.let { ViewUtils.applyOverlay(it, resource, R.drawable.home_page_background_gradient) })
+//                }
+//                override fun onLoadCleared(placeholder: Drawable?) {
+//
+//                }
+//            })
+
+        //Method two - preferred
         Glide.with(requireActivity())
-            .asBitmap()
             .load(ImageLinkHelper.withSize(uri, width, height))
             .skipMemoryCache(true) //Will keep bitmaps in control
             .centerCrop()
             .error(mDefaultBackground)
-            .into(object : CustomTarget<Bitmap> (width, height){
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    mBackgroundManager.setBitmap(context?.let { ViewUtils.applyOverlay(it, resource, R.drawable.home_page_background_gradient) })
+            .into(object : CustomTarget<Drawable> (width, height){
+                override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                    mBackgroundManager.drawable = (context?.let { ViewUtils.applyOverlay(it, resource, R.drawable.home_page_background_gradient) })
                 }
                 override fun onLoadCleared(placeholder: Drawable?) {
 
