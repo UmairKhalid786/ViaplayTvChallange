@@ -3,6 +3,7 @@ package com.viaplay.android.tvsample.features.main.ui
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
@@ -33,9 +34,9 @@ import java.util.*
 @AndroidEntryPoint
 class MainFragment : BrowseSupportFragment() {
 
-    private val mainViewModel: MainViewModel by viewModels<MainViewModel>()
+    private val mainViewModel: MainViewModel by viewModels()
 
-    private val mHandler = Handler()
+    private val mHandler = Handler(Looper.getMainLooper())
     private lateinit var mBackgroundManager: BackgroundManager
     private var mDefaultBackground: Drawable? = null
     private lateinit var mMetrics: DisplayMetrics
