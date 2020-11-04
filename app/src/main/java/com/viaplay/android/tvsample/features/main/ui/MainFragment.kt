@@ -104,9 +104,15 @@ class MainFragment : BrowseSupportFragment() {
         isHeadersTransitionOnBackEnabled = true
 
         // set fastLane (or headers) background color
-        brandColor = ContextCompat.getColor(requireActivity(), R.color.fastlane_background)
+        brandColor = ContextCompat.getColor(requireActivity(), android.R.color.black)
         // set search icon color
         searchAffordanceColor = ContextCompat.getColor(requireActivity(), R.color.search_opaque)
+
+        setHeaderPresenterSelector(object : PresenterSelector() {
+            override fun getPresenter(item: Any?): Presenter {
+                return IconHeaderItemPresenter()
+            }
+        })
     }
 
     private fun setupEventListeners() {
