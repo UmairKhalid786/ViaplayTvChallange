@@ -1,12 +1,15 @@
 package com.viaplay.android.tvsample.features.main.ui
 
+import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -48,8 +51,19 @@ class MainFragment : BrowseSupportFragment() {
         super.onCreate(savedInstanceState)
         adapter = rowsAdapter
         mainViewModel.startDataLoad()
-        setupObservers()
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        setupObservers()
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         Log.i(TAG, "onCreate")
@@ -59,8 +73,14 @@ class MainFragment : BrowseSupportFragment() {
         setupEventListeners()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        Log.e("onchange" , "change")
+    }
+
     private fun setupObservers() {
-        mainViewModel.content.observe(this, ::bindContent)
+        mainViewModel.content.observe(viewLifecycleOwner, ::bindContent)
     }
 
     private fun bindContent(content: Content) {
