@@ -2,8 +2,10 @@ package com.viaplay.android.tvsample.features.main.ui
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
@@ -110,7 +112,21 @@ class MainFragment : BrowseSupportFragment() {
         brandColor = ContextCompat.getColor(requireActivity(), R.color.fastlane_background)
         // set search icon color
         searchAffordanceColor = ContextCompat.getColor(requireActivity(), R.color.search_opaque)
+
+//        AsyncTask.execute({
+//
+//        })
+//
+//
+
     }
+
+//
+//    class MyTask : AsyncTask<Unit, Unit, Unit>() {
+//        override fun doInBackground(vararg params: Unit?) {
+//
+//        }
+//    }
 
     private fun setupEventListeners() {
         setOnSearchClickedListener {
@@ -162,6 +178,7 @@ class MainFragment : BrowseSupportFragment() {
             .error(mDefaultBackground)
             .into(object : CustomTarget<Drawable> (width, height){
                 override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+
                     mBackgroundManager.drawable = (context?.let { ViewUtils.applyOverlay(it, resource, R.drawable.home_page_background_gradient) })
                 }
                 override fun onLoadCleared(placeholder: Drawable?) {

@@ -8,6 +8,7 @@ import javax.inject.Inject
 class ContentRepositoryImpl @Inject constructor(
         private val contentApi: ContentApi,
         private val languageDataMapper: Mapper<ContentResponse, Content>) : ContentRepository {
+
     override suspend fun getRoot(): Content {
         val contentResponse = contentApi.getContent()
         return languageDataMapper.map(contentResponse)

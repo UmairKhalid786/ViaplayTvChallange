@@ -44,14 +44,14 @@ abstract class NetModule {
         @Provides
         @Singleton
         internal fun provideOkHttpClient(
-                cache: Cache,
+            cache: Cache,
         ): OkHttpClient {
             checkThread()
             val builder =
-                    OkHttpClient.Builder().connectTimeout(HTTP_TIMEOUT_S.toLong(), TimeUnit.SECONDS)
-                            .readTimeout(HTTP_TIMEOUT_S.toLong(), TimeUnit.SECONDS)
-                            .writeTimeout(HTTP_TIMEOUT_S.toLong(), TimeUnit.SECONDS)
-                            .cache(cache)
+                OkHttpClient.Builder().connectTimeout(HTTP_TIMEOUT_S.toLong(), TimeUnit.SECONDS)
+                    .readTimeout(HTTP_TIMEOUT_S.toLong(), TimeUnit.SECONDS)
+                    .writeTimeout(HTTP_TIMEOUT_S.toLong(), TimeUnit.SECONDS)
+                    .cache(cache)
             return builder.build()
         }
 
@@ -59,23 +59,26 @@ abstract class NetModule {
         @Singleton
         internal fun provideMoshi(): Moshi {
             return Moshi.Builder()
-                    .add(ContentResponse.Block.Type::class.java, EnumJsonAdapter.create(ContentResponse.Block.Type::class.java).withUnknownFallback(null))
-                    .build()
+                .add(ContentResponse.Block.Type::class.java,
+                    EnumJsonAdapter.create(ContentResponse.Block.Type::class.java)
+                        .withUnknownFallback(null)
+                )
+                .build()
         }
 
         @Provides
         @Singleton
         fun provideRetrofit(
-                client: Lazy<OkHttpClient>,
-                moshi: Moshi
+            client: Lazy<OkHttpClient>,
+            moshi: Moshi
         ): Retrofit {
             return Retrofit.Builder()
-                    .callFactory {
-                        client.get().newCall(it)
-                    }
-                    .baseUrl("https://content.viaplay.se/")
-                    .addConverterFactory(MoshiConverterFactory.create(moshi))
-                    .build()
+                .callFactory {
+                    client.get().newCall(it)
+                }
+                .baseUrl("https://content.viaplay.se/")
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
+                .build()
         }
 
         @Provides
@@ -84,6 +87,4 @@ abstract class NetModule {
             return retrofit.create(ContentApi::class.java)
         }
     }
-
-
 }
